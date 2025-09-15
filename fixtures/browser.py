@@ -1,7 +1,7 @@
 import pytest
 from playwright.sync_api import expect, Playwright
 from locators.register_page import Locators
-import time
+
 
 @pytest.fixture(scope='session')
 def initialize_browser_state(playwright: Playwright):
