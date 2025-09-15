@@ -1,13 +1,8 @@
 import pytest
 from playwright.sync_api import expect, Playwright
+from locators.register_page import Locators
+import time
 
-class Locators:
-    def __init__(self, page):
-        self.email_input = page.get_by_test_id('registration-form-email-input').locator('input')
-        self.username_input = page.get_by_test_id('registration-form-username-input').locator('input')
-        self.password_input = page.get_by_test_id('registration-form-password-input').locator('input')
-        self.register_button = page.get_by_test_id('registration-page-registration-button')
-        self.auth_title = page.get_by_test_id('dashboard-drawer-list-item-title-text').locator('span')
 @pytest.fixture(scope='session')
 def initialize_browser_state(playwright: Playwright):
     print('Фикстура на регистрацию запущена')
@@ -30,3 +25,7 @@ def chromium_page_with_state(playwright: Playwright):
     browser = playwright.chromium.launch(headless=False)
     context = browser.new_context(storage_state='browser-state.json')
     yield context.new_page()
+
+@pytest.fixture(params=[1,2])
+def testfixture(request):
+    print(request.param)

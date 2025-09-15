@@ -1,18 +1,25 @@
 from playwright.sync_api import expect
 import pytest
 
-def test1():
-    print('test1')
+@pytest.mark.parametrize('users', ['Vlad', 'Alena', 'Masha', 'Anton'], ids=('man', 'woman', 'woman', 'man'))
+class TestLesson:
+    def test1(self, users):
+        print(users)
 
-def test2():
-    print('test1')
+    @pytest.fixture(params=[1, 2, 3])
+    def sss(self, request, users):
+        print(request.param)
 
-def test3():
-    print('test1')
+    def test3(self, users):
+        print(users)
 
-def test4():
-    print('test1')
+    @pytest.mark.usefixtures('testfixture')
+    def test4(self, users):
+        print('test_4')
 
+@pytest.mark.parametrize('email, password', [('user.name@gmail.com', 'password'), ('user.name@gmail.com', '  '), ('  ', 'password')])
+def test_wrong_email_or_password_authorization(email, password):
+    print(email, password)
 @pytest.mark.usefixtures('initialize_browser_state')
 def test_empty_courses_list(chromium_page_with_state):
     chromium_page_with_state.goto('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses')
