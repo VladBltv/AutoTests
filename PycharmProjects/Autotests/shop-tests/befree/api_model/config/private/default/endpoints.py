@@ -1,0 +1,1 @@
+class Endpoints:    update_config = "/configs"

@@ -1,0 +1,1 @@
+class Endpoints:    list_unsent_orders = "/orders/unsent"    list_receipts = "/orders/receipts"    reprint_receipt = "/orders/receipts/reprint"    resend_order = "/orders/resend"    cancel_order = "/orders/cancel"

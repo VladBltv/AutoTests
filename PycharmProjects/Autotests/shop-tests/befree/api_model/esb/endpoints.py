@@ -1,0 +1,1 @@
+class Endpoints:    esb_pickuppoints = "/api/omni/proxy/oms2/v2/logistics/pickup-points/v11"    esb_intervals = "/api/omni/proxy/oms2/v2/logistics/delivery-intervals/v11"    esb_check_order = lambda self, order_number: f"/api/omni/proxy/oms2/v1/client/order/{order_number}/full"    esb_stocks = "/api/dwh/stocks/v1/goods"

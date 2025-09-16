@@ -1,0 +1,1 @@
+class Endpoints:    get_employee_days = "/employee/days"    create_employee_day = "/employee/days/create"    delete_employee_day = "/employee/days/delete"

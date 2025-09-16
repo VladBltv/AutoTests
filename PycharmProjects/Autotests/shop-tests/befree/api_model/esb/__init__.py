@@ -1,0 +1,1 @@
+from befree.api_model.esb.api_esb import Esbclass EsbPublic:    api_esb = Esb()

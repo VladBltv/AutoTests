@@ -1,0 +1,1 @@
+class Endpoints:    frozen = f"/products/frozen"

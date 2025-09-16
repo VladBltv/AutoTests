@@ -1,0 +1,1 @@
+class Endpoints:    get_list = "/compilations"    get = lambda self, compilation_id: f"/compilations/{compilation_id}"    update = lambda self, compilation_id: f"/compilations/{compilation_id}"    create = "/compilations"    delete = lambda self, compilation_id: f"/compilations/{compilation_id}"

@@ -1,0 +1,1 @@
+class Endpoints:    get_types = "/pricerules/types"    get_list = "/pricerules"    get = lambda self, pricerule_id: f"/pricerules/{pricerule_id}"    create = "/pricerules/create"    update = lambda self, pricerule_id: f"/pricerules/{pricerule_id}/update"    delete = lambda self, pricerule_id: f"/pricerules/{pricerule_id}/delete"

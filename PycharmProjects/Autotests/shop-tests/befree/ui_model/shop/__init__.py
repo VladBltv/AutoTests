@@ -1,0 +1,1 @@
+from befree.ui_model.shop.header.header import Headerfrom befree.ui_model.shop.listing.listing_page import ListingPagefrom befree.ui_model.shop.product.product_page import ProductPageclass ShopPages:    def __init__(self, page):        self.listing_page = ListingPage(page)        self.product_page = ProductPage(page)        self.header = Header(page)

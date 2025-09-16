@@ -1,0 +1,1 @@
+from befree.api_model.catalog.internal.variations.api_variations import Variationsclass CatalogInternal:    api_variations = Variations()

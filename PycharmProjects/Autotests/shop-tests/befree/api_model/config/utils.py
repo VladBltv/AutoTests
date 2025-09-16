@@ -1,0 +1,1 @@
+class Utils:    def prepare_configs(self, configs_bd, value):        configs = []        for i in range(len(configs_bd)):            configs.append({                "key": configs_bd[i]["key"],                "title": configs_bd[i]["title"],                "value": value})        return configs

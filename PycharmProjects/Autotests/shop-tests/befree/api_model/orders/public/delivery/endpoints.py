@@ -1,0 +1,1 @@
+class Endpoints:    get_delivery_methods = "/cart/delivery-methods"    delivery_methods_availability = "/cart/delivery-methods-availability"    get_intervals = "/cart/intervals"    get_pickpoints = "/cart/pickpoints"

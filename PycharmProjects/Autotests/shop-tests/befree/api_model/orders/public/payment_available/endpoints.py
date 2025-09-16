@@ -1,0 +1,1 @@
+class Endpoints:    get_payments_available = "/payments/available"

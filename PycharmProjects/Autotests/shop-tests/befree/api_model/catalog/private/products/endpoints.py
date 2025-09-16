@@ -1,0 +1,1 @@
+class Endpoints:    delete_variation = lambda self, product_id, variation_id: f"/products/{product_id}/variations/{variation_id}"    patch_variation = lambda self, product_id, variation_id: f"/products/{product_id}/variations/{variation_id}"    delete_product = lambda self, product_id: f"/products/{product_id}"

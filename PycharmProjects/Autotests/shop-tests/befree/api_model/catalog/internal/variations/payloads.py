@@ -1,0 +1,1 @@
+import jsonclass Payloads:    def get_stores_for_variations(self, fias_id, items):        return json.dumps({"fiasId": fias_id, "items": items})

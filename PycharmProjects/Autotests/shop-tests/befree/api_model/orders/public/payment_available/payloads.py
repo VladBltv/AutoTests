@@ -1,0 +1,1 @@
+import jsonclass Payloads:    def get_payments_available(self, cart_uuid):        return json.dumps({"cartUuid": cart_uuid})

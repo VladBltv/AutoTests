@@ -1,0 +1,1 @@
+import jsonclass Payloads:    def get_config(self, keys):        return json.dumps({            "keys": keys        })

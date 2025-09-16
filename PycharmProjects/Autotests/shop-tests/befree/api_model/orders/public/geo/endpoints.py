@@ -1,0 +1,1 @@
+class Endpoints:    city_by_ip = "/geo/city-by-ip"    suggestion_city = "/suggestion/city"    suggestion_street = "/suggestion/street"    suggestion_building = "/suggestion/building"

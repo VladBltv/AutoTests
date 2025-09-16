@@ -1,0 +1,1 @@
+class Endpoints:    heartbeat = "/heartbeat"

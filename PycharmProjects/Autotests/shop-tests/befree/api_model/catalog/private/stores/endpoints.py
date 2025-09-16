@@ -1,0 +1,1 @@
+class Endpoints:    update_store = lambda self, store_id: f"/stores/{store_id}"

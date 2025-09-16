@@ -1,0 +1,1 @@
+class Endpoints:    get = lambda self, article, fias_id, golden_record: (f"/products/{article}?cityData[fiasId]={fias_id}&cityData[goldenRecord]" f"={golden_record}")

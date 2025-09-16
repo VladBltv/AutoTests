@@ -1,0 +1,10 @@
+class Endpoints:
+    get_user = lambda self, user_id: f"/users/{user_id}/show"
+    delete_avatar = "/users/avatar/delete"
+    update_avatar = "/users/avatar/update"
+    get_likes = "/users/likes"
+    login_user = "/users/login"
+    register_user = "/users/register"
+    update_user = "/users/update"
+    verify_check = "/users/verify/check"
+    verify_send = "/users/verify/send"

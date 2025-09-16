@@ -1,0 +1,1 @@
+class Endpoints:    get_config = "/configs"

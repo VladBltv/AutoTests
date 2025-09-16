@@ -1,0 +1,1 @@
+class Endpoints:    send_order = "/orders/send"    get_order = "/orders/get"    get_orders_history = "/orders/history"

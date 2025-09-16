@@ -1,0 +1,1 @@
+import jsonclass Payloads:    def update_store(self, **kwargs):        payload = {}        payload.update(kwargs)        return json.dumps(payload)

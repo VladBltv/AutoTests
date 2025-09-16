@@ -1,0 +1,1 @@
+from befree.api_model.catalog.public.product.api_product import Productfrom befree.api_model.catalog.public.service.api_service import Serviceclass CatalogPublic:    api_product = Product()    api_service = Service()

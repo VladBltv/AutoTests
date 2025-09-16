@@ -1,0 +1,1 @@
+from befree.api_model.config.private.default.api_default import Defaultclass ConfigPrivate:    api_private_config = Default()

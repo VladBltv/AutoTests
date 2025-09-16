@@ -1,0 +1,42 @@
+ref_compilation_without_merch_default = [
+    {
+        "id": 248978,
+        "article": "2321820555",
+        "calculated_price": 1799,
+        "discount_percent": 31,
+        "color_code": 23,
+        "colors_count": 3,
+    },
+    {
+        "id": 248977,
+        "article": "2321820555",
+        "calculated_price": 1799,
+        "discount_percent": 31,
+        "color_code": 1,
+        "colors_count": 3,
+    },
+    {
+        "id": 248979,
+        "article": "2321775722",
+        "calculated_price": 1299,
+        "discount_percent": 57,
+        "color_code": 1,
+        "colors_count": 3,
+    },
+    {
+        "id": 248980,
+        "article": "2321775722",
+        "calculated_price": 1079,
+        "discount_percent": 64,
+        "color_code": 19,
+        "colors_count": 3,
+    },
+    {
+        "id": 248976,
+        "article": "2331224900",
+        "calculated_price": 1999,
+        "discount_percent": 0,
+        "color_code": 41,
+        "colors_count": 2,
+    },
+]

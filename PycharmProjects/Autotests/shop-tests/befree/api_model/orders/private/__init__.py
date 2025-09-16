@@ -1,0 +1,1 @@
+from befree.api_model.orders.private.orders.api_orders import Ordersfrom befree.api_model.orders.private.employee_days.api_employee_days import EmployeeDaysfrom befree.api_model.orders.private.pricerules.api_pricerules import Pricerulesclass OrdersPrivate:    api_employee_days = EmployeeDays()    api_orders = Orders()    api_pricerules = Pricerules()

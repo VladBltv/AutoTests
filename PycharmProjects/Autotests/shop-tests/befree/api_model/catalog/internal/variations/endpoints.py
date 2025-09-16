@@ -1,0 +1,1 @@
+class Endpoints:    get_stores_for_variations = "/variations/stores/inventories"

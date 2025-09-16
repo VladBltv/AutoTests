@@ -1,0 +1,1 @@
+class Endpoints:    get = lambda self, category_id: f"/attributes/{category_id}"    get_values = lambda self, attribute_id, compilation_id: f"/attributes/values/{attribute_id}/{compilation_id}"

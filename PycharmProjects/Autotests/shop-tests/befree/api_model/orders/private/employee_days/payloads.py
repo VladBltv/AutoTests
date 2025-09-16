@@ -1,0 +1,1 @@
+import jsonclass Payloads:    def create_employee_day(self, date):        return json.dumps({            "employeeDay": {                "date": date            }        })    def delete_employee_day(self, id):        return json.dumps({            "employeeDay": {                "id": id            }        })
