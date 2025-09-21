@@ -47,9 +47,18 @@ class CoursesPage(BasePage):
         expect(self.edit_course).to_be_visible()
         expect(self.delete_course).to_be_visible()
 
-    def click_edit_course(self):
-        self.edit_course.click()
+    def click_edit_course(self, index):
+        self.edit_course.nth(index).click()
 
-    def click_delete_course(self):
-        self.delete_course.click()
+    def click_delete_course(self, index):
+        self.delete_course.nth(index).click()
+
+    def check_empty_courses(self):
+        expect(self.empty_icon).to_be_visible()
+
+        expect(self.title_empty_course).to_be_visible()
+        expect(self.title_empty_course).to_have_text('There is no results')
+
+        expect(self.description_empty_course).to_be_visible()
+        expect(self.description_empty_course).to_have_text('Results from the load test pipeline will be displayed here')
 
