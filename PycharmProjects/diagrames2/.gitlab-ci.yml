@@ -6,9 +6,16 @@ generate_uml:
   stage: generate_uml
   script:
     - mkdir -p public
-    - java -version || echo "Java not found"
-    - wget -q https://github.com/plantuml/plantuml/releases/download/v1.2024.5/plantuml-1.2024.5.jar -O /tmp/plantuml.jar || curl -L -o /tmp/plantuml.jar https://github.com/plantuml/plantuml/releases/download/v1.2024.5/plantuml-1.2024.5.jar
     - |
+      if ! command -v java &> /dev/null; then
+        echo "Downloading portable Java..."
+        wget -q https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -O /tmp/jdk.tar.gz || curl -L -o /tmp/jdk.tar.gz https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
+        tar -xzf /tmp/jdk.tar.gz -C /tmp/
+        export JAVA_HOME=/tmp/jdk-11.0.2
+        export PATH=$JAVA_HOME/bin:$PATH
+      fi
+      java -version
+      wget -q https://github.com/plantuml/plantuml/releases/download/v1.2024.5/plantuml-1.2024.5.jar -O /tmp/plantuml.jar || curl -L -o /tmp/plantuml.jar https://github.com/plantuml/plantuml/releases/download/v1.2024.5/plantuml-1.2024.5.jar
       find . -name "*.puml" -type f -print0 | while IFS= read -r -d '' file; do
         echo "Processing: $file"
         java -jar /tmp/plantuml.jar -tsvg -o public "$file"
