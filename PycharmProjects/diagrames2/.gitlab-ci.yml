@@ -6,13 +6,24 @@ generate_uml:
   stage: generate_uml
   script:
     - mkdir -p public
+    - java -version || echo "Java not found"
+    - wget -q https://github.com/plantuml/plantuml/releases/download/v1.2024.5/plantuml-1.2024.5.jar -O /tmp/plantuml.jar || curl -L -o /tmp/plantuml.jar https://github.com/plantuml/plantuml/releases/download/v1.2024.5/plantuml-1.2024.5.jar
     - |
       find . -name "*.puml" -type f -print0 | while IFS= read -r -d '' file; do
         echo "Processing: $file"
-        absfile="/data/${file#./}"
-        sudo docker run --rm -v "$(pwd):/data" plantuml/plantuml:latest java -jar /opt/plantuml.jar -tsvg -o /data/public "$absfile"
+        java -jar /tmp/plantuml.jar -tsvg -o public "$file"
       done
     - ls -la public/
+    - git config --global user.email "gitlab-runner@example.com"
+    - git config --global user.name "GitLab Runner"
+    - git add public/
+    - |
+      if git diff --staged --quiet; then
+        echo "No changes to commit"
+      else
+        git commit -m "Auto-generate PlantUML diagrams"
+      fi
+    - git push origin HEAD || true
   artifacts:
     paths:
       - public/
