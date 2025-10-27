@@ -5,17 +5,24 @@ stages:
 generate_uml:
   stage: generate_uml
   cache:
-    key: plantuml-only-clean
+    key: java-and-plantuml
     paths:
       - plantuml.jar
+      - .java/
   before_script:
     - |
-      # Используем системную Java
-      if command -v java &> /dev/null; then
+      # Используем Java из старого кэша
+      if [ -d ".java/jdk-11.0.20+8" ]; then
+        echo "✅ Используем Java из старого кэша"
+        export JAVA_HOME=$(pwd)/.java/jdk-11.0.20+8
+        export PATH=$JAVA_HOME/bin:$PATH
+        java -version
+      elif command -v java &> /dev/null; then
         echo "✅ Используем системную Java"
         java -version
       else
-        echo "❌ Java не найдена на сервере. Обратитесь к администратору для установки Java."
+        echo "❌ Java не найдена. Java уже установлена в старом кэше, просто используйте её."
+        echo "Попробуйте запустить пайплайн ещё раз - он найдет Java в кэше."
         exit 1
       fi
     - |
