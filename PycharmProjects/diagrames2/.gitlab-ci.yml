@@ -4,37 +4,59 @@ stages:
 
 generate_uml:
   stage: generate_uml
+  cache:
+    key: plantuml-only-clean
+    paths:
+      - plantuml.jar
+  before_script:
+    - |
+      # Используем системную Java
+      if command -v java &> /dev/null; then
+        echo "✅ Используем системную Java"
+        java -version
+      else
+        echo "❌ Java не найдена на сервере. Обратитесь к администратору для установки Java."
+        exit 1
+      fi
+    - |
+      if [ ! -f "plantuml.jar" ]; then
+        echo "PlantUML не найден, загружаю..."
+        wget -q https://github.com/plantuml/plantuml/releases/download/v1.2024.5/plantuml-1.2024.5.jar -O plantuml.jar || curl -L -o plantuml.jar https://github.com/plantuml/plantuml/releases/download/v1.2024.5/plantuml-1.2024.5.jar
+      else
+        echo "Используем PlantUML из кэша"
+      fi
   script:
     - mkdir -p public
+    - echo "<!DOCTYPE html><html><head><meta charset='UTF-8'><title>PlantUML Diagrams</title><style>body{font-family:Arial,sans-serif;margin:20px;background:#f5f5f5;}h1{color:#333;}a{display:block;margin:10px 0;color:#0066cc;text-decoration:none;padding:8px;background:white;border-radius:4px;}a:hover{background:#e8f4f8;}</style></head><body><h1>PlantUML Diagrams</h1>" > public/index.html
     - |
-      if ! command -v java &> /dev/null; then
-        echo "Downloading portable Java..."
-        wget -q https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz -O /tmp/jdk.tar.gz || curl -L -o /tmp/jdk.tar.gz https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
-        tar -xzf /tmp/jdk.tar.gz -C /tmp/
-        export JAVA_HOME=/tmp/jdk-11.0.2
-        export PATH=$JAVA_HOME/bin:$PATH
-      fi
-      java -version
-      wget -q https://github.com/plantuml/plantuml/releases/download/v1.2024.5/plantuml-1.2024.5.jar -O /tmp/plantuml.jar || curl -L -o /tmp/plantuml.jar https://github.com/plantuml/plantuml/releases/download/v1.2024.5/plantuml-1.2024.5.jar
-      find . -name "*.puml" -type f -print0 | while IFS= read -r -d '' file; do
-        echo "Processing: $file"
-        java -jar /tmp/plantuml.jar -tsvg -o public "$file"
+      for file in sequences/*.puml; do
+        if [ -f "$file" ]; then
+          filename=$(basename "$file" .puml)
+          echo "Processing: $file"
+          cd sequences
+          java -jar ../plantuml.jar -tpng "$filename.puml"
+          mv "$filename.png" ../public/
+          cd ..
+          echo "<a href='$filename.png' target='_blank'>📊 $filename</a>" >> public/index.html
+        fi
       done
+    - echo "</body></html>" >> public/index.html
     - ls -la public/
-    - git config --global user.email "gitlab-runner@example.com"
-    - git config --global user.name "GitLab Runner"
-    - git add public/
+    - echo "=== ПУБЛИЧНЫЕ ССЫЛКИ НА ДИАГРАММЫ ==="
+    - echo "После успешного выполнения пайплайна используйте ссылки:"
     - |
-      if git diff --staged --quiet; then
-        echo "No changes to commit"
-      else
-        git commit -m "Auto-generate PlantUML diagrams"
-      fi
-    - git push origin HEAD || true
+      for img in public/*.png; do
+        if [ -f "$img" ]; then
+          filename=$(basename "$img")
+          echo "📊 $filename:"
+          echo "   https://git.melonfashion.ru/befree/qa/befree-diagrams/-/jobs/latest/artifacts/file/public/$filename"
+          echo ""
+        fi
+      done
   artifacts:
     paths:
       - public/
-    expire_in: 1 hour
+    expire_in: 30 days
 
 pages:
   stage: deploy_pages
@@ -42,9 +64,7 @@ pages:
     - generate_uml
   script:
     - echo "Деплой на GitLab Pages..."
-    - mkdir -p public
+    - ls -la public/
   artifacts:
     paths:
       - public
-  only:
-    - main

@@ -1,0 +1,8 @@
+# GitLab CI cache files
+.java/
+plantuml.jar
+
+# OS files
+.DS_Store
+Thumbs.db
+
