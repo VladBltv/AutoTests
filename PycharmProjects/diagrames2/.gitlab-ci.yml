@@ -1,0 +1,32 @@
+stages:
+  - generate_uml
+  - deploy_pages
+
+generate_uml:
+  stage: generate_uml
+  script:
+    - mkdir -p public
+    - |
+      find . -name "*.puml" -type f -print0 | while IFS= read -r -d '' file; do
+        echo "Processing: $file"
+        absfile="/data/${file#./}"
+        sudo docker run --rm -v "$(pwd):/data" plantuml/plantuml:latest java -jar /opt/plantuml.jar -tsvg -o /data/public "$absfile"
+      done
+    - ls -la public/
+  artifacts:
+    paths:
+      - public/
+    expire_in: 1 hour
+
+pages:
+  stage: deploy_pages
+  dependencies:
+    - generate_uml
+  script:
+    - echo "Деплой на GitLab Pages..."
+    - mkdir -p public
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
