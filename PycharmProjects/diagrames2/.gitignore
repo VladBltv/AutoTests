@@ -1,8 +1,10 @@
-# GitLab CI cache files
-.java/
-plantuml.jar
-
-# OS files
-.DS_Store
-Thumbs.db
+.env
+upload_results.json
+.diagram_hashes.json
+test_upload_results.json
+*.pyc
+__pycache__/
+.vscode/
+.idea/
+*.log
 
